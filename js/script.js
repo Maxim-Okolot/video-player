@@ -205,16 +205,11 @@ function keyboardShortcuts(event) {
 
 function updateFullscreenButton() {
   fullscreenIcons.forEach((icon) => icon.classList.toggle('hidden'));
-
-  if (document.fullscreenElement) {
-    btnFullScreenAria.innerHTML = "Во весь экран (f)"
-  } else {
-    btnFullScreenAria.innerHTML = "Выход из полноэкранного режима (f)"
-  }
 }
 
 function toggleFullScreen() {
   if (document.fullscreenElement) {
+    btnFullScreenAria.innerHTML = "Во весь экран (f)";
     document.exitFullscreen();
   } else if (document.webkitFullscreenElement) {
     // Need this to support Safari
@@ -222,7 +217,7 @@ function toggleFullScreen() {
   } else if (videoContainer.webkitRequestFullscreen) {
     // Need this to support Safari
     playerWindow.webkitRequestFullscreen();
-
+    btnFullScreenAria.innerHTML = "Выход из полноэкранного режима (f)";
   } else {
     playerWindow.requestFullscreen();
   }
@@ -242,39 +237,74 @@ function remind() {
 }
 timeout = setTimeout(remind, 5000);
 
-function openSettings() {
-  let windowSettings = document.getElementById("settings");
-  if (windowSettings.classList.contains("active")) {
-    windowSettings.classList.remove("active");
-  } else {
-    windowSettings.classList.add("active");
-  }
-}
-
 function openSettingSpeed() {
   let videoSpeed = document.getElementById("video-speed");
   let videoQuality = document.getElementById("video-quality");
+  let videoSub = document.getElementById("video-sub");
 
   if (videoSpeed.classList.contains("active")) {
     videoSpeed.classList.remove("active");
     videoQuality.classList.remove("hide");
+    videoSub.classList.remove("hide");
   } else {
     videoSpeed.classList.add("active");
     videoQuality.classList.add("hide");
+    videoSub.classList.add("hide");
   }
-
 }
 
 function openSettingQuality() {
   let videoSpeed = document.getElementById("video-speed");
   let videoQuality = document.getElementById("video-quality");
+  let videoSub = document.getElementById("video-sub");
 
   if (videoQuality.classList.contains("active")) {
     videoSpeed.classList.remove("hide");
     videoQuality.classList.remove("active");
+    videoSub.classList.remove("hide");
   } else {
     videoSpeed.classList.add("hide");
     videoQuality.classList.add("active");
+    videoSub.classList.add("hide");
+  }
+}
+
+let buttonSettings = document.querySelector('.button-settings');
+let menu = document.querySelector('.settings');
+
+let toggleMenu = function toggleMenu() {
+  menu.classList.toggle('active');
+};
+
+buttonSettings.addEventListener('click', function(e) {
+  e.stopPropagation();
+  toggleMenu();
+});
+
+document.addEventListener('click', function (e) {
+  let target = e.target;
+  let its_menu = target == menu || menu.contains(target);
+  let its_hamburger = target == buttonSettings;
+  let menu_is_active = menu.classList.contains('active');
+
+  if (!its_menu && !its_hamburger && menu_is_active) {
+    toggleMenu();
+  }
+});
+
+function openSettingSub() {
+  let videoSpeed = document.getElementById("video-speed");
+  let videoQuality = document.getElementById("video-quality");
+  let videoSub = document.getElementById("video-sub");
+
+  if (videoSub.classList.contains("active")) {
+    videoSpeed.classList.remove("hide");
+    videoQuality.classList.remove("hide");
+    videoSub.classList.remove("active");
+  } else {
+    videoSpeed.classList.add("hide");
+    videoQuality.classList.add("hide");
+    videoSub.classList.add("active");
   }
 }
 
@@ -304,8 +334,6 @@ function fastPlaySpeed() {
     speedList[2].classList.add("active");
   }
 }
-
-
 
 video.addEventListener('loadedmetadata', initializeVideo);
 document.addEventListener('mousemove', alive);

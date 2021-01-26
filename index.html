@@ -64,7 +64,7 @@
                   onclick="videoVolumeMutt()"></button>
         </div>
         <div class="button-settings__wrap">
-          <button type="button" class="button-video" onclick="openSettings()">
+          <button type="button" class="button-video button-settings">
             <span class="button-video__aria" id="settings-aria">Настройки</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -102,6 +102,22 @@
                 <li class="quality-list__item">720px</li>
                 <li class="quality-list__item active">480px</li>
                 <li class="quality-list__item">320px</li>
+              </ul>
+            </div>
+            <div class="settings__button" id="video-sub">
+              <button type="button" onclick="openSettingSub()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M6.707 8.207a1 1 0 000-1.414l-.086-.086a1 1 0 00-1.414 0L.828 11.086a2 2 0 000 2.828l4.38 4.379a1 1 0 001.413 0l.086-.086a1 1 0 000-1.414l-3.586-3.586a1 1 0 010-1.414l3.586-3.586z"
+                        fill="currentColor"></path>
+                </svg>
+                Субтитры
+              </button>
+              <ul class="sub-list">
+                <li class="sub-list__item">ru</li>
+                <li class="sub-list__item">de</li>
+                <li class="sub-list__item active">en</li>
+                <li class="sub-list__item">in</li>
               </ul>
             </div>
           </div>

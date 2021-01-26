@@ -58,11 +58,11 @@ body {
   background: linear-gradient(180deg,#000 0%,rgba(0,0,0,0) 100%);
   content: '';
   height: 220px;
-  left: 0;
+  left: -20px;
   pointer-events: none;
   position: absolute;
   top: 0;
-  width: 100%;
+  width: calc(100% + 40px);
   z-index: -5;
 }
 
@@ -476,7 +476,7 @@ progress::-moz-progress-bar {
   position: relative;
 }
 
-.settings__button > button, .speed-list__item, .quality-list__item {
+.settings__button > button, .speed-list__item, .quality-list__item, .sub-list__item {
   padding: 10px 24px;
   background: transparent;
   color: #fff;
@@ -501,26 +501,26 @@ progress::-moz-progress-bar {
   display: block;
 }
 
-.settings__button > button:hover, .speed-list__item:hover, .quality-list__item:hover {
+.settings__button > button:hover, .speed-list__item:hover, .quality-list__item:hover, .sub-list__item:hover {
   background: rgba(255,255,255,0.06);
 }
 
-.speed-list, .quality-list {
+.speed-list, .quality-list, .sub-list {
   width: 100%;
   display: none;
 }
 
-.speed-list__item, .quality-list__item {
+.speed-list__item, .quality-list__item, .sub-list__item {
   padding-left: 30px;
 }
 
-.speed-list__item.active, .quality-list__item.active {
+.speed-list__item.active, .quality-list__item.active, .sub-list__item:active {
   background-image: url("../img/check.svg");
   background-position: 5px center;
   background-repeat: no-repeat;
 }
 
-.settings__button.active .speed-list, .settings__button.active .quality-list {
+.settings__button.active .speed-list, .settings__button.active .quality-list, .settings__button.active  .sub-list {
   display: block;
 }
 
