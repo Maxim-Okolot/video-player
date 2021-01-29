@@ -38,6 +38,10 @@ body {
   z-index: 1;
 }
 
+.player.hide {
+  cursor: none;
+}
+
 .video-title__wrap {
   width: 100%;
   z-index: 10;
@@ -427,7 +431,7 @@ progress::-moz-progress-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 0;
+  z-index: 2;
   opacity: 0;
   margin: -20px auto auto -40px;
 }

@@ -228,12 +228,15 @@ function alive() {
   clearTimeout(timeout);
   titleWrap.classList.remove("hide");
   controlsWrap.classList.remove("hide");
+  videoContainer.classList.remove("hide");
   timeout = setTimeout(remind, 5000);
 }
 
 function remind() {
   titleWrap.classList.add("hide");
   controlsWrap.classList.add("hide");
+  controlsWrap.classList.add("hide");
+  videoContainer.classList.add("hide");
 }
 timeout = setTimeout(remind, 5000);
 
@@ -335,6 +338,12 @@ function fastPlaySpeed() {
   }
 }
 
+function videoStartPreload() {
+
+
+}
+
+video.addEventListener('progress', videoStartPreload);
 video.addEventListener('loadedmetadata', initializeVideo);
 document.addEventListener('mousemove', alive);
 video.addEventListener('click', play);
