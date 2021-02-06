@@ -9,6 +9,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+li {
+  list-style: none;
+}
+
 .player {
   width: 100%;
   height: 396px;
@@ -94,6 +98,7 @@ body {
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr auto;
+  grid-template-rows: 32px auto auto;
   position: relative;
   grid-gap: 15px;
   z-index: 10;
@@ -146,8 +151,6 @@ body {
   background: rgba(255,255,255,0.12);
   background-image: url("../img/stop.svg");
 }
-
-
 
 #button-play.video-pause {
   background-image: url("../img/play.svg");
@@ -461,19 +464,74 @@ progress::-moz-progress-bar {
 }
 
 .settings {
-  background: #2b2a2f;
+  background-color: #2b2a2f;
   border-radius: 8px;
-  overflow: hidden;
   padding: 12px 0;
   position: absolute;
-  bottom: 40px;
-  right: 10px;
+  bottom: 46px;
+  right: -8px;
   z-index: 20;
   display: none;
 }
 
+.settings:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #2b2a2f;
+  position: absolute;
+  bottom: -10px;
+  right: 15px;
+}
+
 .settings.active {
   display: block;
+}
+
+.settings.active .settings__button {
+  display: inline-flex;
+  width: 100%;
+}
+
+.settings.active .settings__button:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.settings__button.active > button:hover, .speed-list__item:hover, .quality-list__item:hover, .sub-list__item:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.settings.active .settings__button.active {
+  display: block;
+}
+
+.settings.active .sub-list__item.active, .settings.active .quality-list__item.active,
+.settings.active .speed-list__item.active {
+  display: block;
+  background: none;
+  padding-left: 15px;
+}
+
+.settings.active .settings__button.active .sub-list__item.active,
+.settings.active .settings__button.active .quality-list__item.active,
+.settings.active .settings__button.active .speed-list__item.active {
+  background-image: url("../img/check.svg");
+  background-position: 10px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.settings.active .settings__button.active .sub-list__item,
+.settings.active .settings__button.active .quality-list__item,
+.settings.active .settings__button.active .speed-list__item {
+  padding-left: 30px;
+  display: block;
+}
+
+.settings.active .sub-list__item, .settings.active .quality-list__item, .settings.active .speed-list__item {
+  display: none;
 }
 
 .settings__button {
@@ -495,6 +553,7 @@ progress::-moz-progress-bar {
   justify-content: center;
   align-items: center;
   width: 100%;
+  color: #59595d;
 }
 
 .settings__button > button svg {
@@ -505,13 +564,8 @@ progress::-moz-progress-bar {
   display: block;
 }
 
-.settings__button > button:hover, .speed-list__item:hover, .quality-list__item:hover, .sub-list__item:hover {
-  background: rgba(255,255,255,0.06);
-}
-
 .speed-list, .quality-list, .sub-list {
   width: 100%;
-  display: none;
 }
 
 .speed-list__item, .quality-list__item, .sub-list__item {
@@ -520,16 +574,33 @@ progress::-moz-progress-bar {
 
 .speed-list__item.active, .quality-list__item.active, .sub-list__item:active {
   background-image: url("../img/check.svg");
-  background-position: 5px center;
+  background-position: 10px center;
   background-repeat: no-repeat;
+  background-size: 16px;
 }
 
 .settings__button.active .speed-list, .settings__button.active .quality-list, .settings__button.active  .sub-list {
   display: block;
 }
 
-.settings__button.hide {
+.settings.active .settings__button.hide {
   display: none;
+}
+
+.settings__button.active > button:first-child {
+  color: #59595d;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.settings__button.active > button:first-child:before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  width: calc(100% - 20px);
+  left: 10px;
+  background-color: #59595d;
+  height: 1px;
 }
 
 @media screen and (max-width: 800px) {

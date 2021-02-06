@@ -15,6 +15,9 @@ const btnFullScreenAria = document.getElementById('fullscreen-aria');
 const titleWrap = document.getElementById('title-wrap');
 const controlsWrap = document.getElementById('controls-wrap');
 const durationBar = document.getElementById('durationBar');
+const qualityList = document.getElementById('quality-list');
+const speedList = document.getElementById('speed-list');
+const subList = document.getElementById('sub-list');
 
 
 function play() {
@@ -247,10 +250,12 @@ function openSettingSpeed() {
 
   if (videoSpeed.classList.contains("active")) {
     videoSpeed.classList.remove("active");
+    speedList.classList.remove("active");
     videoQuality.classList.remove("hide");
     videoSub.classList.remove("hide");
   } else {
     videoSpeed.classList.add("active");
+    speedList.classList.add("active");
     videoQuality.classList.add("hide");
     videoSub.classList.add("hide");
   }
@@ -264,10 +269,12 @@ function openSettingQuality() {
   if (videoQuality.classList.contains("active")) {
     videoSpeed.classList.remove("hide");
     videoQuality.classList.remove("active");
+    qualityList.classList.remove("active");
     videoSub.classList.remove("hide");
   } else {
     videoSpeed.classList.add("hide");
     videoQuality.classList.add("active");
+    qualityList.classList.add("active");
     videoSub.classList.add("hide");
   }
 }
@@ -304,46 +311,102 @@ function openSettingSub() {
     videoSpeed.classList.remove("hide");
     videoQuality.classList.remove("hide");
     videoSub.classList.remove("active");
+    subList.classList.remove("active");
   } else {
     videoSpeed.classList.add("hide");
     videoQuality.classList.add("hide");
     videoSub.classList.add("active");
+    subList.classList.add("active");
   }
 }
 
-function slowPlaySpeed() {
-  let speedList = document.getElementsByClassName("speed-list__item");
-  for (let i = 0; i < 3; i++) {
-    speedList[i].classList.remove("active");
-    speedList[0].classList.add("active");
-  }
-  video.playbackRate = 0.5;
-}
-
-function normalPlaySpeed() {
-  video.playbackRate = 1;
-  let speedList = document.getElementsByClassName("speed-list__item");
-  for (let i = 0; i < 3; i++) {
-    speedList[i].classList.remove("active");
-    speedList[1].classList.add("active");
-  }
-}
-
-function fastPlaySpeed() {
-  video.playbackRate = 2;
-  let speedList = document.getElementsByClassName("speed-list__item");
-  for (let i = 0; i < 3; i++) {
-    speedList[i].classList.remove("active");
-    speedList[2].classList.add("active");
+function playSpeed(e) {
+  if(speedList.classList.contains("active")) {
+    let speedList = document.getElementsByClassName("speed-list__item");
+    for (let i = 0; i < speedList.length; i++) {
+      speedList[i].classList.remove('active');
+    }
+    switch (e.target.innerHTML) {
+      case '0.5':
+        video.playbackRate = 0.5;
+        e.target.classList.add('active');
+        break;
+      case 'обычная':
+        video.playbackRate = 1;
+        e.target.classList.add('active');
+        break;
+      case '2':
+        e.target.classList.add('active');
+        video.playbackRate = 2;
+        break;
+    }
+  } else {
+    return false;
   }
 }
 
-function videoStartPreload() {
 
-
+function selectVideo(e) {
+  if(qualityList.classList.contains("active")) {
+    let timePosition = video.currentTime;
+    let qualityListItem = document.getElementsByClassName("quality-list__item");
+    for (let i = 0; i < qualityListItem.length; i++) {
+      qualityListItem[i].classList.remove('active');
+    }
+    switch (e.target.innerHTML) {
+      case '240p':
+        video.src = 'https://vjs.zencdn.net/v/oceans.mp4?HD';
+        video.play();
+        e.target.classList.add('active');
+        video.currentTime = timePosition;
+        break;
+      case '360p':
+        video.src = 'https://vjs.zencdn.net/v/oceans.mp4?SD';
+        video.play();
+        e.target.classList.add('active');
+        video.currentTime = timePosition;
+        break;
+      case '720p':
+        e.target.classList.add('active');
+        video.src = 'https://vjs.zencdn.net/v/oceans.mp4?HD';
+        video.play();
+        video.currentTime = timePosition;
+        break;
+    }
+  } else {
+    return false;
+  }
 }
 
-video.addEventListener('progress', videoStartPreload);
+function selectSub(e) {
+  if(subList.classList.contains("active")) {
+    let subtitles = document.getElementsByClassName("sub-list__item");
+    for (let i = 0; i < subtitles.length; i++) {
+      subtitles[i].classList.remove('active');
+    }
+    switch (e.target.innerHTML) {
+      case 'ru':
+
+        e.target.classList.add('active');
+        break;
+      case 'de':
+
+        e.target.classList.add('active');
+        break;
+      case 'en':
+        e.target.classList.add('active');
+
+        break;
+      case 'in':
+        e.target.classList.add('active');
+
+        break;
+    }
+  } else {
+    return false;
+  }
+}
+
 video.addEventListener('loadedmetadata', initializeVideo);
 document.addEventListener('mousemove', alive);
 video.addEventListener('click', play);
@@ -357,3 +420,6 @@ video.addEventListener('click', play);
 fullscreenButton.addEventListener('click', toggleFullScreen);
 videoContainer.addEventListener('fullscreenchange', updateFullscreenButton);
 video.addEventListener('click', animatePlayback);
+qualityList.addEventListener('click', selectVideo);
+speedList.addEventListener('click', playSpeed);
+subList.addEventListener('click', selectSub);
