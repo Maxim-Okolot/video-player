@@ -26,6 +26,8 @@
     </div>
     <video class="video__player" id="video-player"
            src="https://vjs.zencdn.net/v/oceans.mp4?HD" onTimeUpdate="progressUpdate()">
+      <track kind="subtitles" src="captions/svaty.vtt" srclang="ru" label="Русский" default="default">
+      Тег video не поддерживается вашим браузером.
     </video>
     <div class="video-title__wrap" id="title-wrap">
       <span class="video-title__ru">Джокер</span>
@@ -111,10 +113,8 @@
                 Субтитры
               </button>
               <ul class="sub-list" id="sub-list">
-                <li class="sub-list__item active">ru</li>
-                <li class="sub-list__item">de</li>
                 <li class="sub-list__item">en</li>
-                <li class="sub-list__item">in</li>
+                <li class="sub-list__item active">off</li>
               </ul>
             </div>
           </div>
